@@ -1,0 +1,16 @@
+<html>
+    <head>
+        <script>
+            const uri = window.location.hostname;
+
+        </script>
+    </head>
+
+    <body>
+    <p>Targeting machine: {{ server_id }}</p>
+    <p>Machine is {{ 'not' if not is_running }} running</p>
+        <form action="{{ form_action }}" method="post">
+                <input type="submit" name="{{ button_text }}" value="{{ button_text }}" />
+        </form>
+    </body>
+</html>
