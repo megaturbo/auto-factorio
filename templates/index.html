@@ -7,10 +7,36 @@
     </head>
 
     <body>
-    <p>Targeting machine: {{ server_id }}</p>
-    <p>Machine is {{ 'not' if not is_running }} running</p>
-        <form action="{{ form_action }}" method="post">
-                <input type="submit" name="{{ button_text }}" value="{{ button_text }}" />
-        </form>
+        <div id="app">
+            <p>Targeting machine: {{ server_id }}</p>
+            <p>Machine is {{ 'not' if not is_running }} running</p>
+            <button v-on:click="{{ button_text }}">{{ button_text }}</button>
+        </div>
     </body>
+
+    <!-- development version, includes helpful console warnings -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+        const options = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" }
+        }
+
+        var app = new Vue({
+            el: '#app',
+            methods: {
+                start: function() {
+                    fetch('/start', options)
+                        .then(response => response.json())
+                        .then(console.log);
+                },
+                stop: function() {
+                    fetch('/stop', options)
+                        .then(response => response.json())
+                        .then(console.log);
+                }
+            },
+            delimiters: ['[[',']]']
+        })
+    </script>
 </html>

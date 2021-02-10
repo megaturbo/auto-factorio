@@ -74,4 +74,4 @@ class Exoscale:
 
     def job_result(self, job_id):
         response = self.request(self.__COMMAND_JOB_RESULT, {'jobid': job_id})
-        return response
+        return response['queryasyncjobresultresponse']

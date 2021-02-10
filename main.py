@@ -1,7 +1,6 @@
 import os
-from urllib.parse import urlencode
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 
 from exoscale import Exoscale
 
@@ -32,19 +31,19 @@ def index():
 # starts server. returns a job_id, use /job_status to check job status
 @app.route('/start', methods=['POST'])
 def start():
-    return exoscale.start_machine()
+    return jsonify(exoscale.start_machine())
 
 
 # stops server. returns a job_id, use /job_status to check job status
 @app.route('/stop', methods=['POST'])
 def stop():
-    return exoscale.stop_machine()
+    return jsonify(exoscale.stop_machine())
 
 
 @app.route('/job_status', methods=['GET'])
 def job_status():
     job_id = request.args.get('job_id')
-    return exoscale.job_result(job_id)
+    return jsonify(exoscale.job_result(job_id))
 
 
 if __name__ == '__main__':
